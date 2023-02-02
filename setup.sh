@@ -19,7 +19,26 @@ sudo -u ubuntu git lfs pull --include "v2-1_512-ema-pruned.ckpt"
 sudo -u ubuntu git lfs install --force
 cd ..
 mv stable-diffusion-2-1-base/v2-1_512-ema-pruned.ckpt stable-diffusion-webui/models/Stable-diffusion/
+mv stable-diffusion-2-1-base/v2-1_512-nonema-pruned.ckpt stable-diffusion-webui/models/Stable-diffusion/
 rm -rf stable-diffusion-2-1-base/
+
+sudo -u ubuntu git clone --depth 1 https://huggingface.co/stabilityai/stable-diffusion-2-depth
+cd stable-diffusion-2-depth/
+sudo -u ubuntu git lfs pull --include "512-depth-ema.ckpt"
+sudo -u ubuntu git lfs install --force
+cd ..
+mv stable-diffusion-2-depth/512-depth-ema.ckpt stable-diffusion-webui/models/Stable-diffusion/
+rm -rf stable-diffusion-2-depth/
+
+
+# download the SD model v2.1 and move it to the SD model directory
+sudo -u ubuntu git clone --depth 1 https://huggingface.co/stabilityai/stable-diffusion-2-1
+mv stable-diffusion-2-1/v2-1_768-ema-pruned.ckpt stable-diffusion-webui/models/Stable-diffusion/
+mv stable-diffusion-2-1/v2-1_768-nonema-pruned.ckpt stable-diffusion-webui/models/Stable-diffusion/
+cp v2-inference.yaml stable-diffusion-webui/models/Stable-diffusion/v2-1_768-ema-pruned.yaml
+rm -rf stable-diffusion-2-1/
+
+
 
 # download the corresponding config file and move it also to the model directory (make sure the name matches the model name)
 wget https://raw.githubusercontent.com/Stability-AI/stablediffusion/main/configs/stable-diffusion/v2-inference.yaml
